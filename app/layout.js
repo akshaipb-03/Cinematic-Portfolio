@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Baloo_2 } from "next/font/google";
+import { Geist, Geist_Mono, Baloo_2, Dancing_Script } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,6 +17,12 @@ const baloo = Baloo_2({
   weight: ["400", "600", "800"],
 });
 
+const dancing = Dancing_Script({
+  variable: "--font-dancing",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
 export const metadata = {
   title: 'Vaibhav Khushalani — Software Developer',
   description: 'Portfolio of Vaibhav Khushalani, Software Developer based in India, available worldwide.',
@@ -26,9 +32,9 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${dancing.variable} h-full antialiased`}
     >
-      <body className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} h-full antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${dancing.variable} h-full antialiased`}>
         {children}
       </body>
     </html>
