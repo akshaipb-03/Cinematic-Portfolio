@@ -105,11 +105,11 @@ const HeroSection = forwardRef(function HeroSection(props, ref) {
         />
       </div>
 
-      {/* Greeting — top left, below navbar */}
+      {/* Greeting — vertically centered left, just above names */}
       <div
         style={{
           position: 'absolute',
-          top: '7rem',
+          top: '44vh',
           left: '1.5rem',
           zIndex: 2,
         }}
@@ -142,17 +142,17 @@ const HeroSection = forwardRef(function HeroSection(props, ref) {
         </p>
       </div>
 
-      {/* First name — large, positioned upper half */}
-      <p ref={firstName} style={{ ...nameStyle, top: '32vh' }}>
+      {/* First name — lower half, just below greeting */}
+      <p ref={firstName} style={{ ...nameStyle, top: '53vh' }}>
         Vaibhav
       </p>
 
-      {/* Location — between names, center-right of viewport */}
+      {/* Location — same level as last name, right of name text */}
       <div
         ref={locationRef}
         style={{
           position: 'absolute',
-          top: '60vh',
+          top: '75vh',
           left: '42%',
           zIndex: 2,
         }}
@@ -181,8 +181,8 @@ const HeroSection = forwardRef(function HeroSection(props, ref) {
         </p>
       </div>
 
-      {/* Last name — large, positioned lower half, bleeds bottom */}
-      <p ref={lastName} style={{ ...nameStyle, top: '60vh' }}>
+      {/* Last name — bleeds off bottom edge for dramatic effect */}
+      <p ref={lastName} style={{ ...nameStyle, top: '75vh' }}>
         Khushalani
       </p>
     </section>
