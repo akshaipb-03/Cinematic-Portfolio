@@ -4,8 +4,9 @@ import { useEffect, useRef, forwardRef } from 'react'
 import Image from 'next/image'
 import Navbar from '@/components/ui/Navbar'
 import { gsap } from '@/lib/gsap'
+import styles from '@/styles/sections/HeroSection.module.css'
 
-const HeroSection = forwardRef(function HeroSection(props, ref) {
+const HeroSection = forwardRef(function HeroSection(_, ref) {
   const sectionRef = useRef(null)
   const greetRef = useRef(null)
   const roleRef = useRef(null)
@@ -54,19 +55,6 @@ const HeroSection = forwardRef(function HeroSection(props, ref) {
     }
   }, [])
 
-  const nameStyle = {
-    fontFamily: 'var(--font-baloo), sans-serif',
-    fontSize: 'var(--hero-name-size)',
-    fontWeight: 800,
-    color: '#1E1E1E',
-    lineHeight: 0.9,
-    letterSpacing: '-0.02em',
-    position: 'absolute',
-    left: '1.5rem',
-    zIndex: 0,
-    whiteSpace: 'nowrap',
-  }
-
   return (
     <section
       ref={node => {
@@ -74,115 +62,40 @@ const HeroSection = forwardRef(function HeroSection(props, ref) {
         if (typeof ref === 'function') ref(node)
         else if (ref) ref.current = node
       }}
-      style={{
-        height: '100vh',
-        scrollSnapAlign: 'start',
-        background: 'linear-gradient(to bottom, var(--hero-start) 0%, var(--hero-mid) 55%, var(--hero-end) 100%)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
+      className={styles.section}
     >
       <Navbar />
 
-      {/* Photo — right side, sits above text names */}
-      <div
-        ref={photoRef}
-        style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          height: '100%',
-          width: '55%',
-          zIndex: 1,
-        }}
-      >
+      {/* Photo — right side, sits above name text */}
+      <div ref={photoRef} className={styles.photo}>
         <Image
           src="/assets/hero.png"
           alt="Vaibhav Khushalani"
           fill
           priority
-          style={{ objectFit: 'cover', objectPosition: 'center top' }}
+          className={styles.photoImg}
         />
       </div>
 
       {/* Greeting — vertically centered left, just above names */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '44vh',
-          left: '1.5rem',
-          zIndex: 2,
-        }}
-      >
-        <p
-          ref={greetRef}
-          style={{
-            fontFamily: 'var(--font-baloo), sans-serif',
-            fontSize: '0.9rem',
-            fontWeight: 400,
-            color: '#1E1E1E',
-            lineHeight: 1.3,
-            letterSpacing: '0.01em',
-          }}
-        >
-          {"Hi, I'm"}
-        </p>
-        <p
-          ref={roleRef}
-          style={{
-            fontFamily: 'var(--font-baloo), sans-serif',
-            fontSize: '0.9rem',
-            fontWeight: 600,
-            color: '#1E1E1E',
-            lineHeight: 1.3,
-            letterSpacing: '0.01em',
-          }}
-        >
-          Software Developer
-        </p>
+      <div className={styles.greeting}>
+        <p ref={greetRef} className={styles.greetText}>{"Hi, I'm"}</p>
+        <p ref={roleRef} className={styles.roleText}>Software Developer</p>
       </div>
 
-      {/* First name — lower half, just below greeting */}
-      <p ref={firstName} style={{ ...nameStyle, top: '53vh' }}>
+      {/* First name */}
+      <p ref={firstName} className={`${styles.name} ${styles.firstName}`}>
         Vaibhav
       </p>
 
-      {/* Location — same level as last name, right of name text */}
-      <div
-        ref={locationRef}
-        style={{
-          position: 'absolute',
-          top: '75vh',
-          left: '42%',
-          zIndex: 2,
-        }}
-      >
-        <p
-          style={{
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            color: '#1E1E1E',
-            letterSpacing: '0.05em',
-            lineHeight: 1.5,
-          }}
-        >
-          Based on India*
-        </p>
-        <p
-          style={{
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            color: '#1E1E1E',
-            letterSpacing: '0.05em',
-            lineHeight: 1.5,
-          }}
-        >
-          Available worldwide
-        </p>
+      {/* Location — between names, center-right */}
+      <div ref={locationRef} className={styles.location}>
+        <p className={styles.locationText}>Based on India*</p>
+        <p className={styles.locationText}>Available worldwide</p>
       </div>
 
-      {/* Last name — bleeds off bottom edge for dramatic effect */}
-      <p ref={lastName} style={{ ...nameStyle, top: '75vh' }}>
+      {/* Last name — bleeds off bottom edge */}
+      <p ref={lastName} className={`${styles.name} ${styles.lastName}`}>
         Khushalani
       </p>
     </section>

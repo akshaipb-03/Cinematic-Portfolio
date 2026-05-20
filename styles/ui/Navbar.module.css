@@ -1,0 +1,39 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  color: var(--navbar-text);
+}
+
+.time {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.navLink {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--navbar-text);
+  transition: opacity 0.2s;
+}
+
+.navLink:hover {
+  opacity: 0.6;
+}
+
+.emailBtn {
+  background: var(--email-btn-bg);
+  color: var(--email-btn-text);
+  border-color: transparent;
+}

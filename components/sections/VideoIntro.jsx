@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from '@/lib/gsap'
 import { Button } from '@/components/ui/button'
+import styles from '@/styles/sections/VideoIntro.module.css'
 
 export default function VideoIntro({ heroRef }) {
   const videoRef = useRef(null)
@@ -19,35 +20,18 @@ export default function VideoIntro({ heroRef }) {
   }
 
   return (
-    <section
-      className="relative flex-shrink-0"
-      style={{
-        height: '100vh',
-        scrollSnapAlign: 'start',
-        background: '#000',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Blurred bg layer — fills black bars */}
+    <section className={styles.section}>
+      {/* Blurred bg layer — fills black bars from letterboxing */}
       <video
         src="/assets/about-me.mp4"
         autoPlay
         muted
         playsInline
         aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          filter: 'blur(24px)',
-          transform: 'scale(1.1)',
-          opacity: 0.7,
-        }}
+        className={styles.bgVideo}
       />
 
-      {/* Main video — original quality, aspect preserved */}
+      {/* Main video — sharp, aspect-ratio preserved */}
       <video
         ref={videoRef}
         data-testid="intro-video"
@@ -56,25 +40,13 @@ export default function VideoIntro({ heroRef }) {
         muted={muted}
         playsInline
         onEnded={handleEnded}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'contain',
-        }}
+        className={styles.mainVideo}
       />
 
       <Button
         variant="ghost"
         onClick={() => setMuted(m => !m)}
-        className="absolute bottom-8 right-8 z-10 rounded-full text-xs font-semibold tracking-widest uppercase px-4 h-9"
-        style={{
-          background: 'rgba(255,255,255,0.15)',
-          backdropFilter: 'blur(8px)',
-          border: '1px solid rgba(255,255,255,0.25)',
-          color: '#fff',
-        }}
+        className={`${styles.muteBtn} rounded-full text-xs font-semibold tracking-widest uppercase px-4 h-9`}
       >
         {muted ? '🔇  TAP FOR SOUND' : '🔊  SOUND ON'}
       </Button>

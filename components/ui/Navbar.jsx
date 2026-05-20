@@ -8,6 +8,7 @@ import {
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu'
 import { Button } from '@/components/ui/button'
+import styles from '@/styles/ui/Navbar.module.css'
 
 const NAV_ITEMS = ['HOME', 'ABOUT', 'WORKS', 'SERVICES', 'EXPERIENCE']
 
@@ -30,22 +31,14 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header
-      className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-6 py-4"
-      style={{ color: 'var(--navbar-text)' }}
-    >
-      <span className="text-xs font-semibold tracking-widest uppercase">
-        INDIA TIME - {time}
-      </span>
+    <header className={styles.header}>
+      <span className={styles.time}>INDIA TIME - {time}</span>
 
       <NavigationMenu>
         <NavigationMenuList className="flex gap-6">
           {NAV_ITEMS.map(item => (
             <NavigationMenuItem key={item}>
-              <NavigationMenuLink
-                className="text-xs font-semibold tracking-widest uppercase cursor-pointer hover:opacity-60 transition-opacity"
-                style={{ color: 'var(--navbar-text)' }}
-              >
+              <NavigationMenuLink className={styles.navLink}>
                 {item}
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -56,12 +49,7 @@ export default function Navbar() {
       <Button
         variant="outline"
         render={<a href="mailto:vaibhavkhush124@gmail.com">Email me</a>}
-        className="rounded-full text-xs font-semibold px-5 h-8"
-        style={{
-          background: 'var(--email-btn-bg)',
-          color: 'var(--email-btn-text)',
-          borderColor: 'transparent',
-        }}
+        className={`${styles.emailBtn} rounded-full text-xs font-semibold px-5 h-8`}
       />
     </header>
   )
