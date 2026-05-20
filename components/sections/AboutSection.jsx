@@ -7,7 +7,7 @@ import { FaGithub, FaLinkedinIn, FaMedium, FaInstagram } from 'react-icons/fa'
 import styles from '@/styles/sections/AboutSection.module.css'
 
 const BIO =
-  `Full-Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. I specialize in microservices, high-performance APIs, and production-ready architectures that handle real-world scale. From data pipelines processing 100k+ SKUs to AI-driven platforms using FastAPI, LangChain, and vector databases, my focus is always on performance and clean system design. I've worked across the full product stack, from frontend architecture and microfrontends to backend systems, caching layers, and async job processing with Redis. I build systems that scale, perform, and deliver real impact.`
+  `Full Stack Engineer with 4+ years of experience building scalable web and AI powered systems using MERN, Next.js, and Python. Specialized in microservices, high performance APIs, and production ready architectures with a strong focus on scalability, performance, and clean system design. Experienced across the full stack from frontend architecture to backend systems, Redis caching, async processing, and AI platforms powered by FastAPI and LangChain.`
 
 const TABS = ['I AM', 'WHO I AM']
 
@@ -89,6 +89,7 @@ export default function AboutSection() {
             src="/assets/about.png"
             alt="Vaibhav Khushalani"
             fill
+            sizes="30vw"
             className={styles.photoImg}
           />
         </div>

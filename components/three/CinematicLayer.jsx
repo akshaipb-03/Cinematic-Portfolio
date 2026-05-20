@@ -85,7 +85,9 @@ export default function CinematicLayer() {
     window.addEventListener('resize', onResize)
 
     // THREE.Timer replaces deprecated THREE.Clock
+    // Prime the timer so the first RAF delta is ~16ms, not time-since-page-load
     const timer = new THREE.Timer()
+    timer.update(performance.now())
     let elapsed = 0
     let animId
 
@@ -107,7 +109,7 @@ export default function CinematicLayer() {
 
       renderer.render(scene, camera)
     }
-    animate(performance.now())
+    requestAnimationFrame(animate)
 
     return () => {
       cancelAnimationFrame(animId)

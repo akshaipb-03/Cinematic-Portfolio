@@ -25,10 +25,11 @@ function getIST() {
 
 export default function Navbar() {
   const [time,    setTime]    = useState(getIST())
-  const [onIntro, setOnIntro] = useState(true)   // start on VideoIntro
-  const headerRef = useRef(null)
-  const lastY     = useRef(0)
-  const hidden    = useRef(false)
+  const [onIntro, setOnIntro] = useState(true)
+  const headerRef   = useRef(null)
+  const lastY       = useRef(0)
+  const hidden      = useRef(false)
+  const stopTimer   = useRef(null)
 
   // Live clock
   useEffect(() => {
@@ -36,31 +37,42 @@ export default function Navbar() {
     return () => clearInterval(id)
   }, [])
 
-  // Auto-hide on scroll + detect VideoIntro section
+  // Auto-hide on scroll-down, reveal on scroll-up or scroll-stop
   useEffect(() => {
     const scroller = document.querySelector('main') ?? window
     const vh = window.innerHeight
+
+    function showNavbar() {
+      if (!hidden.current) return
+      gsap.to(headerRef.current, { y: '0%', duration: 0.35, ease: 'power2.out' })
+      hidden.current = false
+    }
 
     const onScroll = () => {
       const currentY = scroller.scrollTop ?? window.scrollY
       const delta    = currentY - lastY.current
 
-      // On VideoIntro: scrollTop < 1 full viewport
       setOnIntro(currentY < vh * 0.8)
 
       if (delta > 8 && !hidden.current) {
         gsap.to(headerRef.current, { y: '-100%', duration: 0.35, ease: 'power2.inOut' })
         hidden.current = true
-      } else if (delta < -6 && hidden.current) {
-        gsap.to(headerRef.current, { y: '0%', duration: 0.35, ease: 'power2.out' })
-        hidden.current = false
+      } else if (delta < -6) {
+        showNavbar()
       }
 
       lastY.current = currentY
+
+      // Show navbar 400 ms after scrolling stops
+      clearTimeout(stopTimer.current)
+      stopTimer.current = setTimeout(showNavbar, 400)
     }
 
     scroller.addEventListener('scroll', onScroll, { passive: true })
-    return () => scroller.removeEventListener('scroll', onScroll)
+    return () => {
+      scroller.removeEventListener('scroll', onScroll)
+      clearTimeout(stopTimer.current)
+    }
   }, [])
 
   return (
