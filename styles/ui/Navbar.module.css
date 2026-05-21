@@ -33,9 +33,13 @@
 }
 
 .emailBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--email-btn-bg);
   color: var(--email-btn-text);
   border-color: transparent;
+  text-decoration: none;
 }
 
 /* ── VideoIntro mode: hide time + nav, keep email only ── */

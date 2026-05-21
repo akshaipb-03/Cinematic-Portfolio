@@ -4,8 +4,6 @@
   top: 0;
   height: 100vh;
   z-index: 1;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   background: #050505;
   overflow: hidden;
 }

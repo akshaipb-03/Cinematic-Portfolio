@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
+import profile from '@/data/profile.json'
 import styles from '@/styles/sections/HeroSection.module.css'
 
 export default function HeroSection() {
@@ -61,9 +62,11 @@ export default function HeroSection() {
       <div ref={photoRef} className={styles.photo}>
         <Image
           src="/assets/hero.png"
-          alt="Vaibhav Khushalani"
+          alt={profile.name.full}
           fill
           priority
+          quality={100}
+          sizes="(min-width: 768px) 40vw, 100vw"
           className={styles.photoImg}
         />
       </div>
@@ -71,23 +74,23 @@ export default function HeroSection() {
       {/* Greeting */}
       <div className={styles.greeting}>
         <p ref={greetRef} className={styles.greetText}>{"Hi, I'm"}</p>
-        <p ref={roleRef}  className={styles.roleText}>Software Developer</p>
+        <p ref={roleRef}  className={styles.roleText}>{profile.roles.short}</p>
       </div>
 
       {/* First name */}
       <p ref={firstName} className={`${styles.name} ${styles.firstName}`}>
-        Vaibhav
+        {profile.name.first}
       </p>
 
       {/* Location — between names */}
       <div ref={locationRef} className={styles.location}>
-        <p className={styles.locationText}>Based on India*</p>
-        <p className={styles.locationText}>Available worldwide</p>
+        <p className={styles.locationText}>{profile.location.based}</p>
+        <p className={styles.locationText}>{profile.location.availability}</p>
       </div>
 
       {/* Last name */}
       <p ref={lastName} className={`${styles.name} ${styles.lastName}`}>
-        Khushalani
+        {profile.name.last}
       </p>
 
     </section>

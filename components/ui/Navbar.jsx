@@ -8,6 +8,7 @@ import {
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu'
 import { gsap } from '@/lib/gsap'
+import profile from '@/data/profile.json'
 import styles from '@/styles/ui/Navbar.module.css'
 
 const NAV_ITEMS = ['HOME', 'ABOUT', 'WORKS', 'SERVICES', 'EXPERIENCE']
@@ -92,7 +93,7 @@ export default function Navbar() {
       </NavigationMenu>
 
       <a
-        href="mailto:vaibhavkhush124@gmail.com"
+        href={`mailto:${profile.email}`}
         className={`${styles.emailBtn} rounded-full text-xs font-semibold px-5 h-8`}
       >
         Email me

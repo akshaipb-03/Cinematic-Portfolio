@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { gsap } from '@/lib/gsap'
+import profile from '@/data/profile.json'
 import styles from '@/styles/sections/VideoIntro.module.css'
 
 const CinematicLayer = dynamic(() => import('@/components/three/CinematicLayer'), { ssr: false })
@@ -99,13 +100,11 @@ export default function VideoIntro() {
 
       {/* 5 — Landing text */}
       <div className={styles.heroContent}>
-        <p ref={greetRef} className={styles.eyebrow}>Portfolio 2025</p>
+        <p ref={greetRef} className={styles.eyebrow}>{profile.tagline}</p>
         <h1 ref={nameRef} className={styles.name}>
-          Vaibhav<br />Khushalani
+          {profile.name.first}<br />{profile.name.last}
         </h1>
-        <p ref={roleRef} className={styles.role}>
-          Full-Stack Engineer &nbsp;·&nbsp; AI Systems &nbsp;·&nbsp; System Design
-        </p>
+        <p ref={roleRef} className={styles.role}>{profile.roles.detailed}</p>
       </div>
 
       {/* 6 — Paused overlay */}

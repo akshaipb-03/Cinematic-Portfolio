@@ -1,0 +1,24 @@
+{
+  "name": {
+    "first": "Vaibhav",
+    "last": "Khushalani",
+    "full": "Vaibhav Khushalani"
+  },
+  "email": "vaibhavkhush124@gmail.com",
+  "tagline": "Portfolio 2026",
+  "roles": {
+    "short": "Software Developer",
+    "detailed": "Full-Stack Engineer · AI Systems · System Design"
+  },
+  "location": {
+    "based": "Based in India*",
+    "availability": "Available worldwide"
+  },
+  "bio": "Full Stack Engineer with 4+ years of experience building scalable web and AI powered systems using MERN, Next.js, and Python. Specialized in microservices, high performance APIs, and production ready architectures with a strong focus on scalability, performance, and clean system design. Experienced across the full stack from frontend architecture to backend systems, Redis caching, async processing, and AI platforms powered by FastAPI and LangChain.",
+  "socials": [
+    { "label": "GitHub",    "href": "https://github.com/VaibhavKhushalani" },
+    { "label": "LinkedIn",  "href": "https://linkedin.com/in/vaibhav-khushalani" },
+    { "label": "Medium",    "href": "https://medium.com/@vaibhavkhush124" },
+    { "label": "Instagram", "href": "https://instagram.com/vaibhav.khushalani" }
+  ]
+}

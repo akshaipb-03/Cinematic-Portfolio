@@ -4,19 +4,16 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
 import { FaGithub, FaLinkedinIn, FaMedium, FaInstagram } from 'react-icons/fa'
+import profile from '@/data/profile.json'
 import styles from '@/styles/sections/AboutSection.module.css'
 
-const BIO =
-  `Full Stack Engineer with 4+ years of experience building scalable web and AI powered systems using MERN, Next.js, and Python. Specialized in microservices, high performance APIs, and production ready architectures with a strong focus on scalability, performance, and clean system design. Experienced across the full stack from frontend architecture to backend systems, Redis caching, async processing, and AI platforms powered by FastAPI and LangChain.`
+const BIO = profile.bio
 
 const TABS = ['I AM', 'WHO I AM']
 
-const SOCIALS = [
-  { Icon: FaGithub,    href: 'https://github.com/VaibhavKhushalani',    label: 'GitHub'    },
-  { Icon: FaLinkedinIn, href: 'https://linkedin.com/in/vaibhav-khushalani', label: 'LinkedIn'  },
-  { Icon: FaMedium,    href: 'https://medium.com/@vaibhavkhush124',      label: 'Medium'    },
-  { Icon: FaInstagram, href: 'https://instagram.com/vaibhav.khushalani', label: 'Instagram' },
-]
+const ICON_MAP = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, Medium: FaMedium, Instagram: FaInstagram }
+
+const SOCIALS = profile.socials.map(s => ({ Icon: ICON_MAP[s.label], href: s.href, label: s.label }))
 
 export default function AboutSection() {
   const sectionRef  = useRef(null)
@@ -84,17 +81,19 @@ export default function AboutSection() {
 
       {/* ── Left: photo + signature + socials ───────── */}
       <div ref={photoRef} className={styles.photoCol}>
-        <div className={styles.photoFrame}>
-          <Image
-            src="/assets/about.png"
-            alt="Vaibhav Khushalani"
-            fill
-            sizes="30vw"
-            className={styles.photoImg}
-          />
+        <div className={styles.photoWrap}>
+          <div className={styles.photoFrame}>
+            <Image
+              src="/assets/about.png"
+              alt="Vaibhav Khushalani"
+              fill
+              quality={100}
+              sizes="(min-width: 768px) 30vw, 100vw"
+              className={styles.photoImg}
+            />
+          </div>
+          <p className={styles.signature}>{profile.name.first}</p>
         </div>
-
-        <p className={styles.signature}>Vaibhav</p>
 
         {/* Social icons */}
         <div ref={socialsRef} className={styles.socials}>

@@ -3,8 +3,6 @@
   top: 0;
   height: 100vh;
   z-index: 3;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   background: #fff;
   display: grid;
   grid-template-columns: 30% 70%;
@@ -18,14 +16,22 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 8rem 1.5rem 2.5rem 2.5rem;
+  overflow: visible;
 }
 
-/* Photo — top-aligned, full column width, tall portrait */
+/* Wrapper holds frame + overlapping signature */
+.photoWrap {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  max-height: 72vh;
+}
+
+/* Photo frame */
 .photoFrame {
   position: relative;
   width: 100%;
-  flex: 1;                     /* fills remaining height in column */
-  max-height: 72vh;
+  height: 100%;
   overflow: hidden;
   border-radius: 6px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
@@ -36,17 +42,21 @@
   object-position: top center;
 }
 
-/* Signature — large, below photo, slight tilt */
+/* Signature — overlaps bottom-right corner of photo */
 .signature {
+  position: absolute;
+  bottom: 0rem;
+  right: -5rem;
   font-family: var(--font-dancing), cursive;
   color: var(--accent);
-  font-size: 4rem;
+  font-size: 5.5rem;
   font-weight: 700;
-  margin-top: 0.5rem;
   line-height: 1;
-  display: inline-block;
-  transform: rotate(-4deg);
-  transform-origin: left center;
+  white-space: nowrap;
+  transform: rotate(-10deg);
+  transform-origin: right bottom;
+  pointer-events: none;
+  z-index: 4;
 }
 
 /* Social icons */
@@ -61,12 +71,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background: #f0f0f0;
   color: #333;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
