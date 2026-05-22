@@ -90,11 +90,11 @@ export default function WorkExperienceSection() {
           )
         }
 
-        // Company name clip-path reveal
+        // Company name fade + slide up
         if (company) {
           tl.fromTo(company,
-            { clipPath: 'inset(0 100% 0 0)', x: -8 },
-            { clipPath: 'inset(0 0% 0 0)', x: 0, duration: 0.45, ease: 'expo.out' },
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.45, ease: 'expo.out' },
             i + 0.48
           )
         }
