@@ -30,7 +30,10 @@ export default function WorkExperienceSection() {
     if (!section || !track) return
 
     const scroller = document.querySelector('main')
+    if (!scroller) return
     const n = EXPS.length
+    contentRefs.current = contentRefs.current.slice(0, n)
+    bgRefs.current = bgRefs.current.slice(0, n)
 
     // Initial state for slides 2+
     contentRefs.current.forEach((el, i) => {
@@ -143,8 +146,11 @@ export default function WorkExperienceSection() {
 
         dotRefs.current.forEach((dot, i) => {
           if (!dot) return
-          dot.style.width      = i === activeIdx ? '36px' : '14px'
-          dot.style.background = i === activeIdx ? 'var(--accent)' : 'rgba(255,255,255,0.2)'
+          gsap.set(dot, {
+            width:      i === activeIdx ? '36px' : '14px',
+            background: i === activeIdx ? 'var(--accent)' : 'rgba(255,255,255,0.2)',
+            overwrite:  true,
+          })
         })
       },
     })
