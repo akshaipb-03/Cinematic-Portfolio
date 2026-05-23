@@ -22,7 +22,7 @@ export default function VideoIntro() {
 
   // muted state drives icon only — DOM muted property is controlled exclusively via ref
   const [muted,    setMuted]    = useState(true)
-  const [playing,  setPlaying]  = useState(true)
+  const [playing,  setPlaying]  = useState(false)
   const [showHint, setShowHint] = useState(true)
 
   // Entrance animation
@@ -52,11 +52,21 @@ export default function VideoIntro() {
       if (!v) return
       v.muted = false
       setMuted(false)
-      v.play().catch(() => {})
       dismissHint()
     }
     window.addEventListener('loader-dismissed', onLoaderDismissed)
     return () => window.removeEventListener('loader-dismissed', onLoaderDismissed)
+  }, [])
+
+  // Play video after shatter animation finishes
+  useEffect(() => {
+    function onAnimationDone() {
+      const v = videoRef.current
+      if (!v) return
+      v.play().catch(() => {})
+    }
+    window.addEventListener('loader-animation-done', onAnimationDone)
+    return () => window.removeEventListener('loader-animation-done', onAnimationDone)
   }, [])
 
   // Auto-hide hint after 6 s
@@ -110,7 +120,7 @@ export default function VideoIntro() {
         ref={videoRef}
         data-testid="intro-video"
         src="/assets/about-me.mp4"
-        autoPlay muted playsInline
+        muted playsInline
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onEnded={handleEnded}

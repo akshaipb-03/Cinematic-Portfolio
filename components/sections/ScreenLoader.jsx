@@ -142,6 +142,7 @@ export default function ScreenLoader({ onDismiss }) {
         onComplete: () => {
           container.remove()
           svg.remove()
+          window.dispatchEvent(new CustomEvent('loader-animation-done'))
           onDismiss()
         },
       })
