@@ -1,8 +1,10 @@
-# Vaibhav Khushalani — Portfolio
+# cinematic-portfolio
+
+> If this project helped or inspired you, consider giving it a ⭐ on GitHub — it helps others find it too.
 
 Animated personal portfolio built with **Next.js 16**, **GSAP**, **Three.js**, and **CSS Modules**.
 
-**Live:** [vaibhavkhushalani.dev](https://vaibhavkhushalani.dev)
+**Live:** [vaibhavkhushalani.dev](https://vaibhavkhushalani.dev) &nbsp;|&nbsp; **GitHub:** [VaibhavKhushalani/cinematic-portfolio](https://github.com/VaibhavKhushalani/cinematic-portfolio)
 
 ---
 
@@ -70,8 +72,8 @@ public/
 
 ```bash
 # 1. Clone
-git clone https://github.com/VaibhavKhushalani/vaibhav-portfolio.git
-cd vaibhav-portfolio
+git clone https://github.com/VaibhavKhushalani/cinematic-portfolio.git
+cd cinematic-portfolio
 
 # 2. Install
 npm install
@@ -169,3 +171,7 @@ Set your domain in `lib/siteConfig.js` (`SITE_URL`) before deploying.
 ## License
 
 MIT — free to fork, adapt, and use as your own portfolio base.
+
+---
+
+Made with care by [Vaibhav Khushalani](https://vaibhavkhushalani.dev). If this saved you time, a ⭐ on GitHub goes a long way.
