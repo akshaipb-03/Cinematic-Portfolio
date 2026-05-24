@@ -89,95 +89,112 @@ export default function PublicationsFooterSection() {
   const interstitialRef = useRef(null)
 
   // footer
-  const canvasRef       = useRef(null)
-  const videoSrcRef     = useRef(null)
-  const footerContentRef = useRef(null)
+  const canvasRef         = useRef(null)
+  const videoSrcRef       = useRef(null)
+  const mobileVideoRef    = useRef(null)
+  const footerContentRef  = useRef(null)
   const leftRef         = useRef(null)
   const rightRef        = useRef(null)
   const bigNameRef      = useRef(null)
   const bottomBarRef    = useRef(null)
 
   useEffect(() => {
-    const wrapper  = wrapperRef.current
-    const sticky   = stickyRef.current
-    const canvas   = canvasRef.current
-    const videoEl  = videoSrcRef.current
-    const scroller = document.querySelector('main')
-    if (!wrapper || !sticky || !canvas || !videoEl || !scroller) return
+    const wrapper       = wrapperRef.current
+    const sticky        = stickyRef.current
+    const canvas        = canvasRef.current
+    const videoEl       = videoSrcRef.current
+    const mobileVideoEl = mobileVideoRef.current
+    const scroller      = document.querySelector('main')
+    if (!wrapper || !sticky || !scroller) return
 
-    // ── Three.js video setup ──────────────────────────────────
-    const W = sticky.offsetWidth
-    const H = sticky.offsetHeight
+    const isMobile = window.innerWidth < 768
 
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
-    renderer.setSize(W, H)
-    renderer.setClearColor(0x000000, 0)
+    let renderer, vidUni, rafId, videoPlaying = false, mobileVideoPlaying = false
+    let onMouseMove = () => {}, onResize = () => {}
 
-    const scene  = new THREE.Scene()
-    const camera = new THREE.OrthographicCamera(-W / 2, W / 2, H / 2, -H / 2, 0.1, 100)
-    camera.position.z = 10
-
-    videoEl.src       = '/assets/footer-video.mp4'
-    videoEl.muted     = true
-    videoEl.playsInline = true
-    videoEl.loop      = true
-    videoEl.preload   = 'auto'
-
-    const vidTex = new THREE.VideoTexture(videoEl)
-    vidTex.minFilter = THREE.LinearFilter
-    vidTex.magFilter = THREE.LinearFilter
-
-    const vidUni = {
-      uVideo:       { value: vidTex },
-      uOpacity:     { value: 0 },
-      uVideoAspect: { value: 16 / 9 },
-      uCanvasAspect: { value: W / H },
+    // ── Mobile simple video setup ─────────────────────────────
+    if (isMobile && mobileVideoEl) {
+      mobileVideoEl.src        = '/assets/footer-video.mp4'
+      mobileVideoEl.muted      = true
+      mobileVideoEl.playsInline = true
+      mobileVideoEl.loop       = true
+      mobileVideoEl.preload    = 'none'
     }
-    videoEl.addEventListener('loadedmetadata', () => {
-      if (videoEl.videoWidth && videoEl.videoHeight)
-        vidUni.uVideoAspect.value = videoEl.videoWidth / videoEl.videoHeight
-    }, { once: true })
-    const vidMat = new THREE.ShaderMaterial({
-      uniforms: vidUni,
-      vertexShader: VID_VERT,
-      fragmentShader: VID_FRAG,
-      transparent: true,
-    })
-    const vidMesh = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.08, H * 1.08), vidMat)
-    vidMesh.position.z = 1
-    scene.add(vidMesh)
 
-    const mx = { tx: 0, ty: 0, x: 0, y: 0 }
-    function onMouseMove(e) {
-      const r = sticky.getBoundingClientRect()
-      mx.tx = (e.clientX - r.left) / r.width  - 0.5
-      mx.ty = (e.clientY - r.top)  / r.height - 0.5
-    }
-    sticky.addEventListener('mousemove', onMouseMove)
+    if (!isMobile && canvas && videoEl) {
+      // ── Three.js video setup ────────────────────────────────
+      const W = sticky.offsetWidth
+      const H = sticky.offsetHeight
 
-    function onResize() {
-      const w = sticky.offsetWidth
-      const h = sticky.offsetHeight
-      renderer.setSize(w, h)
-      camera.left   = -w / 2; camera.right  = w / 2
-      camera.top    =  h / 2; camera.bottom = -h / 2
-      camera.updateProjectionMatrix()
-      vidUni.uCanvasAspect.value = w / h
-    }
-    window.addEventListener('resize', onResize)
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false })
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
+      renderer.setSize(W, H)
+      renderer.setClearColor(0x000000, 0)
 
-    let rafId
-    function tick() {
-      rafId = requestAnimationFrame(tick)
-      mx.x += (mx.tx - mx.x) * 0.04
-      mx.y += (mx.ty - mx.y) * 0.04
-      vidMesh.position.x = mx.x * 14
-      vidMesh.position.y = mx.y * -8
-      vidTex.needsUpdate = true
-      renderer.render(scene, camera)
+      const scene  = new THREE.Scene()
+      const camera = new THREE.OrthographicCamera(-W / 2, W / 2, H / 2, -H / 2, 0.1, 100)
+      camera.position.z = 10
+
+      videoEl.src       = '/assets/footer-video.mp4'
+      videoEl.muted     = true
+      videoEl.playsInline = true
+      videoEl.loop      = true
+      videoEl.preload   = 'auto'
+
+      const vidTex = new THREE.VideoTexture(videoEl)
+      vidTex.minFilter = THREE.LinearFilter
+      vidTex.magFilter = THREE.LinearFilter
+
+      vidUni = {
+        uVideo:       { value: vidTex },
+        uOpacity:     { value: 0 },
+        uVideoAspect: { value: 16 / 9 },
+        uCanvasAspect: { value: W / H },
+      }
+      videoEl.addEventListener('loadedmetadata', () => {
+        if (videoEl.videoWidth && videoEl.videoHeight)
+          vidUni.uVideoAspect.value = videoEl.videoWidth / videoEl.videoHeight
+      }, { once: true })
+      const vidMat = new THREE.ShaderMaterial({
+        uniforms: vidUni,
+        vertexShader: VID_VERT,
+        fragmentShader: VID_FRAG,
+        transparent: true,
+      })
+      const vidMesh = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.08, H * 1.08), vidMat)
+      vidMesh.position.z = 1
+      scene.add(vidMesh)
+
+      const mx = { tx: 0, ty: 0, x: 0, y: 0 }
+      onMouseMove = function(e) {
+        const r = sticky.getBoundingClientRect()
+        mx.tx = (e.clientX - r.left) / r.width  - 0.5
+        mx.ty = (e.clientY - r.top)  / r.height - 0.5
+      }
+      sticky.addEventListener('mousemove', onMouseMove)
+
+      onResize = function() {
+        const w = sticky.offsetWidth
+        const h = sticky.offsetHeight
+        renderer.setSize(w, h)
+        camera.left   = -w / 2; camera.right  = w / 2
+        camera.top    =  h / 2; camera.bottom = -h / 2
+        camera.updateProjectionMatrix()
+        vidUni.uCanvasAspect.value = w / h
+      }
+      window.addEventListener('resize', onResize)
+
+      function tick() {
+        rafId = requestAnimationFrame(tick)
+        mx.x += (mx.tx - mx.x) * 0.04
+        mx.y += (mx.ty - mx.y) * 0.04
+        vidMesh.position.x = mx.x * 14
+        vidMesh.position.y = mx.y * -8
+        vidTex.needsUpdate = true
+        renderer.render(scene, camera)
+      }
+      tick()
     }
-    tick()
 
     // ── Publication entry animation ───────────────────────────
     let pubAnimDone = false
@@ -211,13 +228,10 @@ export default function PublicationsFooterSection() {
     }
 
     // ── Scroll-driven animation ───────────────────────────────
-    let videoPlaying = false
-
     function onScroll() {
-      const scrollTop   = scroller.scrollTop
-      const wrapperTop  = wrapper.offsetTop
-      const vh          = window.innerHeight
-      const dist        = scrollTop - wrapperTop
+      const vh   = window.innerHeight
+      // getBoundingClientRect is reliable regardless of offsetParent chain or navbar
+      const dist = -wrapper.getBoundingClientRect().top
 
       // Entry: play pub animation when section first enters view
       if (dist > -vh * 0.5 && dist < vh * 0.35) {
@@ -227,52 +241,82 @@ export default function PublicationsFooterSection() {
         setImageLeft()
       }
 
-      // Progress 0→1 over 2 viewports (3 scroll steps: pub / image-only / footer)
-      // p=0: publications  p=0.5: image-only  p=1: footer
-      const p = Math.max(0, Math.min(1, dist / (2 * vh)))
+      // Desktop: 300vh wrapper → 2vh travel. Mobile: 200svh wrapper → 1vh travel.
+      const p = Math.max(0, Math.min(1, dist / (isMobile ? vh : 2 * vh)))
 
-      // ── Phase 1: pub text fades out (p 0 → 0.28) ────────
-      const pubFade = 1 - Math.max(0, Math.min(1, p / 0.28))
+      // ── Phase 1: pub text fades out ──────────────────────
+      // Mobile: p 0 → 0.15 | Desktop: p 0 → 0.28
+      const pubFadeEnd = isMobile ? 0.15 : 0.28
+      const pubFade = 1 - Math.max(0, Math.min(1, p / pubFadeEnd))
       gsap.set(pubContentRef.current, { opacity: pubFade, pointerEvents: pubFade > 0.05 ? 'auto' : 'none' })
 
-      // ── Phase 2: image shrinks full-width → centered (p 0.15 → 0.72) ──
-      const imgRaw = Math.max(0, Math.min(1, (p - 0.15) / 0.57))
-      const imgP   = easeInOut(imgRaw)
+      const vw = window.innerWidth
 
-      const vw      = window.innerWidth
-      const startW  = vw          // 100% — full background
-      const endW    = vw * 0.46   // 46% — centered portrait
-      const w       = startW + imgP * (endW - startW)
-      const centerX = imgP * (vw - w) / 2
+      if (isMobile) {
+        // ── Mobile: image fades out (p 0.10 → 0.30) ──
+        const imgFadeOut = 1 - Math.max(0, Math.min(1, (p - 0.10) / 0.20))
+        gsap.set(imageWrapRef.current, { width: vw, x: 0, opacity: imgFadeOut })
 
-      // Dark overlay fades as image shrinks (readable in pub phase, gone in image-only)
-      if (imageOverlayRef.current) {
-        gsap.set(imageOverlayRef.current, { opacity: 1 - imgP })
+        // Overlay matches image fade
+        if (imageOverlayRef.current) {
+          gsap.set(imageOverlayRef.current, { opacity: imgFadeOut })
+        }
+
+        // ── Mobile video: fade in with footer p 0.20 → 0.45 ─
+        if (mobileVideoEl) {
+          const mVidFade = Math.max(0, Math.min(1, (p - 0.20) / 0.25))
+          gsap.set(mobileVideoEl, { opacity: mVidFade * 0.85 })
+          if (mVidFade > 0.04 && !mobileVideoPlaying) {
+            mobileVideoPlaying = true
+            mobileVideoEl.play().catch(() => {})
+          } else if (mVidFade <= 0.04 && mobileVideoPlaying) {
+            mobileVideoPlaying = false
+            mobileVideoEl.pause()
+            mobileVideoEl.currentTime = 0
+          }
+        }
+      } else {
+        // ── Phase 2: image shrinks full-width → centered (p 0.15 → 0.72) ──
+        const imgRaw = Math.max(0, Math.min(1, (p - 0.15) / 0.57))
+        const imgP   = easeInOut(imgRaw)
+
+        const startW  = vw
+        const endW    = vw * 0.46
+        const w       = startW + imgP * (endW - startW)
+        const centerX = imgP * (vw - w) / 2
+
+        // Dark overlay fades as image shrinks
+        if (imageOverlayRef.current) {
+          gsap.set(imageOverlayRef.current, { opacity: 1 - imgP })
+        }
+
+        // ── Interstitial: fade in after pub, fade out before footer ──
+        const interIn  = Math.max(0, Math.min(1, (p - 0.25) / 0.15))
+        const interOut = Math.max(0, Math.min(1, (p - 0.60) / 0.12))
+        gsap.set(interstitialRef.current, { opacity: interIn * (1 - interOut), pointerEvents: 'none' })
+
+        // ── Phase 3: video crossfade + image fade (p 0.68 → 0.88) ──
+        const imgOpacity = 1 - Math.max(0, Math.min(1, (p - 0.68) / 0.20))
+        gsap.set(imageWrapRef.current, { width: w, x: centerX, opacity: imgOpacity })
+
+        const videoFade = Math.max(0, Math.min(1, (p - 0.65) / 0.22))
+        vidUni.uOpacity.value = videoFade
+
+        if (videoFade > 0.04 && !videoPlaying) {
+          videoPlaying = true
+          videoEl.play().catch(() => {})
+        } else if (videoFade <= 0.04 && videoPlaying) {
+          videoPlaying = false
+          videoEl.pause()
+          videoEl.currentTime = 0
+        }
       }
 
-      // ── Interstitial: fade in after pub, fade out before footer (p 0.25 → 0.40 → 0.60 → 0.72) ──
-      const interIn  = Math.max(0, Math.min(1, (p - 0.25) / 0.15))
-      const interOut = Math.max(0, Math.min(1, (p - 0.60) / 0.12))
-      gsap.set(interstitialRef.current, { opacity: interIn * (1 - interOut), pointerEvents: 'none' })
-
-      // ── Phase 3: video crossfade + image fade (p 0.68 → 0.88) ──
-      const imgOpacity = 1 - Math.max(0, Math.min(1, (p - 0.68) / 0.20))
-      gsap.set(imageWrapRef.current, { width: w, x: centerX, opacity: imgOpacity })
-
-      const videoFade = Math.max(0, Math.min(1, (p - 0.65) / 0.22))
-      vidUni.uOpacity.value = videoFade
-
-      if (videoFade > 0.04 && !videoPlaying) {
-        videoPlaying = true
-        videoEl.play().catch(() => {})
-      } else if (videoFade <= 0.04 && videoPlaying) {
-        videoPlaying = false
-        videoEl.pause()
-        videoEl.currentTime = 0
-      }
-
-      // ── Phase 3: footer text fades in (p 0.75 → 1.0) ───
-      const footerFade = Math.max(0, Math.min(1, (p - 0.75) / 0.25))
+      // ── Footer text fades in ──────────────────────────────
+      // Mobile: p 0.05 → 0.25 | Desktop: p 0.75 → 1.0
+      const footerStart = isMobile ? 0.05 : 0.75
+      const footerRange = isMobile ? 0.20 : 0.25
+      const footerFade = Math.max(0, Math.min(1, (p - footerStart) / footerRange))
       gsap.set(footerContentRef.current, { opacity: footerFade, pointerEvents: footerFade > 0.05 ? 'auto' : 'none' })
     }
 
@@ -282,11 +326,11 @@ export default function PublicationsFooterSection() {
     onScroll()
 
     return () => {
-      cancelAnimationFrame(rafId)
+      if (rafId) cancelAnimationFrame(rafId)
       scroller.removeEventListener('scroll', onScroll)
       sticky.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('resize', onResize)
-      renderer.dispose()
+      if (renderer) renderer.dispose()
     }
   }, [])
 
@@ -296,9 +340,12 @@ export default function PublicationsFooterSection() {
     <div ref={wrapperRef} className={styles.wrapper}>
       <div ref={stickyRef} className={styles.sticky}>
 
-        {/* ── Video canvas (footer background) ── */}
+        {/* ── Video canvas (footer background — desktop) ── */}
         <canvas ref={canvasRef} className={styles.glCanvas} />
         <video ref={videoSrcRef} className={styles.hiddenVideo} />
+
+        {/* ── Mobile video (footer background — mobile only) ── */}
+        <video ref={mobileVideoRef} className={styles.mobileVideo} playsInline muted loop />
 
         {/* ── Floating image: starts left, moves to center ── */}
         <div ref={imageWrapRef} className={styles.imageWrap}>

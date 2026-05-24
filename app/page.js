@@ -12,7 +12,7 @@ import PublicationsFooterSection from '@/components/sections/PublicationsFooterS
 import ScreenLoader from '@/components/sections/ScreenLoader'
 import profile               from '@/data/profile.json'
 
-// Snap: 0=video 1=hero 2=about 3..4=projects 5=work-exp 6=publications 7=image-only 8=footer
+// Snap: 0=video 1=hero 2=about 3..4=projects 5=work-exp 6=publications 7=footer (mobile: 6=publications 7=footer)
 const PROJECT_SLIDES = profile.projects.length
 const TOTAL          = 7 + PROJECT_SLIDES  // 9
 
@@ -120,7 +120,7 @@ export default function Home() {
       const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8
       const atTop    = el.scrollTop < 8
       if (dy > 0 && atBottom) fadeLoop(0, 0)
-      if (dy < 0 && atTop)    fadeLoop((TOTAL - 1) * window.innerHeight, TOTAL - 1)
+      if (dy < 0 && atTop)    fadeLoop(el.scrollHeight - el.clientHeight, TOTAL - 1)
     }
 
     if (!isMobile) {

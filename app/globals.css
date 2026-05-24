@@ -74,4 +74,8 @@ main { scrollbar-width: none; -ms-overflow-style: none; }
   :root {
     --hero-name-size: clamp(3rem, 10vw, 5rem);
   }
+
+  /* Override inline 100vh — Chrome mobile toolbar hides bottom content */
+  html, body { height: 100svh !important; }
+  main { height: 100svh !important; }
 }
