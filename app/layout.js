@@ -58,7 +58,7 @@ export const metadata = {
       'Full Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. Available worldwide for collaborations.',
     images: [
       {
-        url: '/assets/hero.png',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Vaibhav Khushalani — Full Stack Developer Portfolio',
@@ -70,7 +70,7 @@ export const metadata = {
     title: 'Vaibhav Khushalani — Full Stack Developer',
     description:
       'Full Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. Available worldwide for collaborations.',
-    images: ['/assets/hero.png'],
+    images: ['/opengraph-image'],
   },
   robots: {
     index: true,
