@@ -339,7 +339,7 @@
   .statCard    { padding: 0.4rem 0.7rem; min-width: 4.5rem; }
   .statValue   { font-size: 0.82rem; }
   .statLabel   { font-size: 0.52rem; }
-  .pill        { font-size: 0.62rem; padding: 0.22rem 0.55rem; }
+  .pill        { font-size: 0.75rem; padding: 0.4rem 0.9rem; }
   .viewBtn     { font-size: 0.78rem; padding: 0.55rem 1.2rem; }
   .pills       { gap: 0.3rem; }
 }
