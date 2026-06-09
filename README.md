@@ -2,7 +2,7 @@
 
 A high-performance personal portfolio built with Next.js 16, GSAP, Three.js, and CSS Modules. Designed to be forked and used as your own.
 
-**Live:** &nbsp;|
+**Live:** &nbsp;| https://akshaipb.vercel.app
 
 If this helped you, consider leaving a ⭐ on GitHub.
 
