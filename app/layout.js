@@ -29,13 +29,13 @@ const dancing = Dancing_Script({
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Vaibhav Khushalani | Full Stack Developer',
-    template: '%s | Vaibhav Khushalani',
+    default: 'Akshai P B | CyberSecurity Professional & Full Stack Developer',
+    template: '%s | Akshai P B',
   },
   description:
     'Full Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. Available worldwide for collaborations.',
   keywords: [
-    'Vaibhav Khushalani',
+    'Akshai P B',
     'Full Stack Developer',
     'Software Engineer',
     'MERN Stack',
@@ -46,14 +46,14 @@ export const metadata = {
     'Portfolio',
     'India',
   ],
-  authors: [{ name: 'Vaibhav Khushalani', url: SITE_URL }],
-  creator: 'Vaibhav Khushalani',
+  authors: [{ name: 'Akshai P B', url: SITE_URL }],
+  creator: 'Akshai P B',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     url: SITE_URL,
-    siteName: 'Vaibhav Khushalani',
-    title: 'Vaibhav Khushalani | Full Stack Developer',
+    siteName: 'Akshai P B',
+    title: 'Akshai P B | CyberSecurity Professional & Full Stack Developer',
     description:
       'Full Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. Available worldwide for collaborations.',
     images: [
@@ -61,13 +61,13 @@ export const metadata = {
         url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Vaibhav Khushalani | Full Stack Developer Portfolio',
+        alt: 'Akshai P B | Portfolio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Vaibhav Khushalani | Full Stack Developer',
+    title: 'Akshai P B | CyberSecurity Professional & Full Stack Developer',
     description:
       'Full Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. Available worldwide for collaborations.',
     images: ['/opengraph-image'],
@@ -117,16 +117,13 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Person',
-              name: 'Vaibhav Khushalani',
+              name: 'Akshai P B',
               url: SITE_URL,
-              email: 'vaibhavkhush124@gmail.com',
-              jobTitle: 'Full Stack Developer',
+              email: 'akshaipb03@gmail.com',
+              jobTitle: 'CyberSecurity Professional & Full Stack Developer',
               sameAs: [
-                'https://github.com/VaibhavKhushalani',
-                'https://www.linkedin.com/in/vaibhav-khushalani-760217136',
-                'https://medium.com/@vaibhavkhushalani',
-                'https://www.instagram.com/vaibhav.create',
-                'https://www.youtube.com/@vaibhav.create',
+                'https://github.com/akshaipb-03',
+                'https://www.linkedin.com/in/akshai-pb',
               ],
             }),
           }}

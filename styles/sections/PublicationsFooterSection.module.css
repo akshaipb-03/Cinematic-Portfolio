@@ -1,13 +1,13 @@
-/* ── Outer wrapper (300vh - three scroll steps) ───────── */
+/* ── Outer wrapper (200vh - interstitial + footer) ─────── */
 .wrapper {
-  height: 300vh;
+  height: 200vh;
   position: relative;
   z-index: 6;
 }
 
 @supports (height: 100svh) {
   @media (max-width: 767px) {
-    .wrapper { height: 300svh; }
+    .wrapper { height: 200svh; }
   }
 }
 
@@ -974,9 +974,5 @@
 
 /* ── Tablet ───────────────────────────────────────────── */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .pubHero      { padding: clamp(2rem, 5vh, 3.5rem) clamp(2rem, 5vw, 5rem) 0; }
-  .divider      { margin: clamp(0.8rem, 2vh, 1.5rem) clamp(2rem, 5vw, 5rem) 0; }
-  .list         { padding: 0 clamp(2rem, 5vw, 5rem) 1.5rem; }
-  .item         { grid-template-columns: 3rem minmax(0, 1fr) auto; }
-  .title        { font-size: clamp(0.78rem, 1.4vw, 1rem); }
+  .mainGrid { grid-template-columns: 1fr 0.8fr 1fr; }
 }

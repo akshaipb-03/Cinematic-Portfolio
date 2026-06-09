@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "author": {
-    "name": "Vaibhav Khushalani",
-    "email": "vaibhavkhush124@gmail.com",
-    "url": "https://github.com/VaibhavKhushalani"
+    "name": "Akshai P B",
+    "email": "akshaipb03@gmail.com",
+    "url": "https://github.com/akshaipb-03"
   },
   "scripts": {
     "dev": "next dev",

@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 
-export const alt = 'Vaibhav Khushalani | Full Stack Developer'
+export const alt = 'Akshai P B | CyberSecurity Professional & Full Stack Developer'
 
 export const size = {
   width: 1200,
@@ -13,7 +13,7 @@ export const size = {
 export const contentType = 'image/png'
 
 const ACCENT = '#f7931e'
-const photoUrl = `${SITE_URL}/assets/about.webp`
+const photoUrl = `${SITE_URL}/assets/about 2.webp`
 
 export default function Image() {
   return new ImageResponse(
@@ -80,7 +80,7 @@ export default function Image() {
                 textTransform: 'uppercase',
               }}
             >
-              SOFTWARE DEVELOPER
+              CYBERSECURITY PROFESSIONAL
             </span>
           </div>
 
@@ -100,7 +100,7 @@ export default function Image() {
                 letterSpacing: -4,
               }}
             >
-              VAIBHAV
+              AKSHAI
             </span>
 
             <span
@@ -111,7 +111,7 @@ export default function Image() {
                 letterSpacing: -4,
               }}
             >
-              KHUSHALANI
+              P B
             </span>
           </div>
 
@@ -222,7 +222,7 @@ export default function Image() {
             src={photoUrl}
             width={420}
             height={630}
-            alt="Vaibhav Khushalani"
+            alt="Akshai P B"
             style={{
               objectFit: 'cover',
             }}
@@ -250,7 +250,7 @@ export default function Image() {
             letterSpacing: 2,
           }}
         >
-          vaibhav-create.vercel.app
+          akshai-portfolio.vercel.app
         </div>
       </div>
     ),

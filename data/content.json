@@ -6,8 +6,8 @@
     "taglineHighlight": "experiences",
     "freelanceNote": "Available for freelance & full-time opportunities.",
     "availableLabel": "Available for work",
-    "pills": ["AI Architect", "Full Stack Engineer", "Cinematic Creator", "MERN Stack"],
-    "specialistStat": { "value": "AI + Full Stack", "label": "Specialist" }
+    "pills": ["Cybersecurity Analyst", "SOC Engineer", "Threat Hunter", "Ethical Hacker"],
+    "specialistStat": { "value": "Cybersecurity + SIEM", "label": "Specialist" }
   },
   "interstitial": {
     "availabilityLabel": "Availability",
@@ -15,8 +15,8 @@
     "statLabels": ["Years\nexperience", "Projects\ndelivered", "Companies\nworked at"]
   },
   "footer": {
-    "eyebrow": "Available for collaborations",
-    "ctaLines": ["Crafting modern", "digital products", "that feel"],
-    "ctaAccent": "alive."
+    "eyebrow": "Available for cybersecurity collaborations",
+    "ctaLines": ["Defending modern", "digital infrastructures", "against evolving threats"],
+    "ctaAccent": "securely."
   }
 }

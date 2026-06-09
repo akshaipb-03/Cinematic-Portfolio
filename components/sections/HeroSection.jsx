@@ -3,7 +3,7 @@
 import { useEffect, useRef, Fragment } from 'react'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-import { FaGithub, FaLinkedinIn, FaInstagram } from 'react-icons/fa'
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { gsap } from '@/lib/gsap'
 
@@ -13,8 +13,8 @@ import styles from '@/styles/sections/HeroSection.module.css'
 
 const HeroBackground = dynamic(() => import('@/components/three/HeroBackground'), { ssr: false })
 
-const SOCIAL_ICON_MAP = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, Instagram: FaInstagram }
-const SIDEBAR_LABELS  = ['Instagram', 'GitHub', 'LinkedIn']
+const SOCIAL_ICON_MAP = { GitHub: FaGithub, LinkedIn: FaLinkedinIn }
+const SIDEBAR_LABELS  = ['GitHub', 'LinkedIn']
 
 function splitTagline(text, highlight) {
   if (!highlight) return [text]
@@ -59,10 +59,7 @@ export default function HeroSection() {
       pillsRef.current, ctaBtnRef.current, statsRef.current,
     ].filter(Boolean)
 
-    const fadeX = [taglineCardRef.current, availCardRef.current].filter(Boolean)
-
     gsap.set(fadeY, { opacity: 0, y: 30 })
-    gsap.set(fadeX, { opacity: 0, x: 20 })
     if (photoRef.current)  gsap.set(photoRef.current,  { opacity: 0, x: 80 })
     if (socialRef.current) gsap.set(socialRef.current, { opacity: 0, x: -20 })
 
@@ -75,9 +72,7 @@ export default function HeroSection() {
       .to(pillsRef.current,       { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
       .to(ctaBtnRef.current,      { opacity: 1, y: 0, duration: 0.4,  ease: 'power2.out' }, '-=0.2')
       .to(statsRef.current,       { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.2')
-      .to(taglineCardRef.current, { opacity: 1, x: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.5')
-      .to(availCardRef.current,   { opacity: 1, x: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
-      .to(socialRef.current,      { opacity: 1, x: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.4')
+      .to(socialRef.current,      { opacity: 1, x: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
 
     const observer = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { tl.play(); observer.disconnect() } },
@@ -99,7 +94,7 @@ export default function HeroSection() {
       {/* Photo */}
       <div ref={photoRef} className={styles.photo}>
         <Image
-          src="/assets/hero.png" alt={profile.name.full}
+          src="/assets/hero 2.png" alt={profile.name.full}
           fill priority quality={100}
           sizes="(min-width: 768px) 55vw, 100vw"
           className={styles.photoImg}
@@ -178,26 +173,7 @@ export default function HeroSection() {
 
       </div>
 
-      {/* Tagline + Availability Cards */}
-      <div className={styles.cardsCol}>
-        <div ref={taglineCardRef} className={styles.taglineCard}>
-          <p className={styles.taglineText}>
-            {splitTagline(profile.tagline, content.hero.taglineHighlight)}
-          </p>
-          <p className={styles.freelanceNote}>{content.hero.freelanceNote}</p>
-        </div>
-
-        {profile.available && (
-          <div ref={availCardRef} className={styles.availCard}>
-            <div className={styles.availHeader}>
-              <span className={styles.availDot} />
-              <span className={styles.availStatus}>{content.hero.availableLabel}</span>
-            </div>
-            <p className={styles.locationLine}>Based in {profile.location.based}</p>
-            <p className={styles.locationLine}>Available {profile.location.availability}</p>
-          </div>
-        )}
-      </div>
+      {/* Cards removed to prevent masking the profile photo */}
 
     </section>
   )
