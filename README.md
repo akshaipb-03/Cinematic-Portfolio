@@ -94,4 +94,4 @@ MIT. Free to fork, adapt, and use as your own portfolio.
 
 **Akshai P B** — CyberSecurity Analyst & Full Stack Developer.
 
-[LinkedIn](https://www.linkedin.com/in/akshai-pb/) &nbsp;|&nbsp; [Medium](https://medium.com/@vaibhavkhushalani) &nbsp;|&nbsp; [Instagram](https://www.instagram.com/akshh.aiii/)) &nbsp;
+[LinkedIn](https://www.linkedin.com/in/akshai-pb/) &nbsp;|&nbsp; [Instagram](https://www.instagram.com/akshh.aiii/)) &nbsp;
