@@ -59,20 +59,24 @@ export default function HeroSection() {
       pillsRef.current, ctaBtnRef.current, statsRef.current,
     ].filter(Boolean)
 
-    gsap.set(fadeY, { opacity: 0, y: 30 })
-    if (photoRef.current)  gsap.set(photoRef.current,  { opacity: 0, x: 80 })
-    if (socialRef.current) gsap.set(socialRef.current, { opacity: 0, x: -20 })
+    gsap.set(fadeY, { opacity: 0, y: 35 })
+    if (photoRef.current)  gsap.set(photoRef.current,  { opacity: 0, x: 50 })
+    if (socialRef.current) gsap.set(socialRef.current, { opacity: 0, x: -25 })
 
     const tl = gsap.timeline({ paused: true })
-    tl.to(greetRef.current,       { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' })
-      .to(roleRef.current,        { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
-      .to(firstName.current,      { opacity: 1, y: 0, duration: 0.6,  ease: 'power2.out' }, '-=0.2')
-      .to(lastName.current,       { opacity: 1, y: 0, duration: 0.6,  ease: 'power2.out' }, '-=0.4')
-      .to(photoRef.current,       { opacity: 1, x: 0, duration: 0.7,  ease: 'power2.out' }, '-=0.5')
-      .to(pillsRef.current,       { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
-      .to(ctaBtnRef.current,      { opacity: 1, y: 0, duration: 0.4,  ease: 'power2.out' }, '-=0.2')
-      .to(statsRef.current,       { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.2')
-      .to(socialRef.current,      { opacity: 1, x: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
+    tl.to(photoRef.current, { opacity: 1, x: 0, duration: 1.25, ease: 'power4.out', force3D: true }, 0)
+      .to([greetRef.current, roleRef.current, firstName.current, lastName.current], {
+        opacity: 1,
+        y: 0,
+        duration: 0.95,
+        stagger: 0.08,
+        ease: 'power4.out',
+        force3D: true,
+      }, 0.1)
+      .to(pillsRef.current, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', force3D: true }, 0.45)
+      .to(ctaBtnRef.current, { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out', force3D: true }, 0.55)
+      .to(statsRef.current, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', force3D: true }, 0.6)
+      .to(socialRef.current, { opacity: 1, x: 0, duration: 0.85, ease: 'power3.out', force3D: true }, 0.4)
 
     const observer = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { tl.play(); observer.disconnect() } },

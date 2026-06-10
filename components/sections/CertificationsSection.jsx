@@ -29,23 +29,24 @@ export default function CertificationsSection() {
       gsap.killTweensOf(titleRef.current)
       gsap.killTweensOf(countRef.current)
       gsap.killTweensOf(cards)
-      gsap.set(titleRef.current, { opacity: 0, y: 30 })
-      gsap.set(countRef.current, { opacity: 0, y: 20 })
-      gsap.set(cards, { opacity: 0, y: 40 })
+      gsap.set(titleRef.current, { opacity: 0, y: 25 })
+      gsap.set(countRef.current, { opacity: 0, y: 15 })
+      gsap.set(cards, { opacity: 0, y: 30 })
     }
 
     function playAnim() {
       resetAnim()
       const tl = gsap.timeline()
-      tl.to(titleRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
-        .to(countRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4')
+      tl.to(titleRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power4.out', force3D: true })
+        .to(countRef.current, { opacity: 1, y: 0, duration: 0.7, ease: 'power4.out', force3D: true }, '-=0.6')
         .to(cards, {
           opacity: 1,
           y: 0,
-          duration: 0.7,
-          ease: 'power3.out',
-          stagger: 0.08
-        }, '-=0.3')
+          duration: 0.95,
+          ease: 'power4.out',
+          stagger: 0.06,
+          force3D: true
+        }, '-=0.5')
     }
 
     resetAnim()
@@ -82,7 +83,7 @@ export default function CertificationsSection() {
       </div>
 
       <div className={styles.header}>
-        <span ref={titleRef} className={styles.label}>Certifications</span>
+        <h2 ref={titleRef} className={styles.label}>Certifications</h2>
         <span ref={countRef} className={styles.labelRight}>0{CERTS.length} Credentials</span>
       </div>
 

@@ -113,7 +113,7 @@ export default function ProjectsSection() {
 
         {/* Top bar */}
         <div className={styles.topBar}>
-          <span className={styles.sectionLabel}>Projects</span>
+          <h2 className={styles.sectionLabel}>Featured Projects</h2>
           <div className={styles.counter}>
             <span ref={counterRef} className={styles.cCur}>01</span>
             <span className={styles.cSep}> / </span>
@@ -158,7 +158,7 @@ export default function ProjectsSection() {
                   <div className={styles.meta}>
                     <span className={styles.typeTag}>{proj.type}</span>
                   </div>
-                  <h2 className={styles.title}>{proj.title}</h2>
+                  <h3 className={styles.title}>{proj.title}</h3>
                   <p  className={styles.subtitle}>{proj.subtitle}</p>
                   {proj.link && (
                     <a

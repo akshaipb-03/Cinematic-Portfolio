@@ -161,24 +161,8 @@
   width: 100%;
 }
 
-.typed    { color: #111; }
-.untyped  { color: #c8c8c8; }
-
-/* Cursor lives as ::after on the last typed char - never a sibling node,
-   so it cannot shift adjacent text or change line-wrap decisions. */
-.lastTyped {
-  color: #111;
-}
-.lastTyped::after {
-  content: '';
-  display: inline-block;
-  width: 2px;
-  height: 0.85em;
-  background: var(--accent);
-  margin-left: 2px;
-  margin-right: -4px;   /* absorb its own width */
-  vertical-align: text-bottom;
-  animation: blink 0.75s step-end infinite;
+.char {
+  color: #c8c8c8;
 }
 
 .cursor {

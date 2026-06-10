@@ -29,22 +29,26 @@ const dancing = Dancing_Script({
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Akshai P B | CyberSecurity Professional & Full Stack Developer',
+    default: 'Akshai P B | Cybersecurity Portfolio & Full Stack Developer',
     template: '%s | Akshai P B',
   },
   description:
-    'Full Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. Available worldwide for collaborations.',
+    'Cybersecurity Professional, SOC Analyst, and Full Stack Developer specializing in Ethical Hacking, Malware Analysis, Penetration Testing, and Security Engineering.',
   keywords: [
-    'Akshai P B',
+    'Cybersecurity Portfolio',
+    'SOC Analyst Portfolio',
+    'Ethical Hacker',
+    'Malware Analysis',
+    'Penetration Testing',
+    'Security Engineer',
     'Full Stack Developer',
+    'Akshai P B',
     'Software Engineer',
     'MERN Stack',
     'Next.js Developer',
     'React Developer',
     'Node.js',
-    'AI Systems',
-    'Portfolio',
-    'India',
+    'Secure Web Applications',
   ],
   authors: [{ name: 'Akshai P B', url: SITE_URL }],
   creator: 'Akshai P B',
@@ -53,9 +57,9 @@ export const metadata = {
     locale: 'en_IN',
     url: SITE_URL,
     siteName: 'Akshai P B',
-    title: 'Akshai P B | CyberSecurity Professional & Full Stack Developer',
+    title: 'Akshai P B | Cybersecurity Portfolio & Full Stack Developer',
     description:
-      'Full Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. Available worldwide for collaborations.',
+      'Cybersecurity Professional, SOC Analyst, and Full Stack Developer specializing in Ethical Hacking, Malware Analysis, Penetration Testing, and Security Engineering.',
     images: [
       {
         url: '/opengraph-image',
@@ -67,9 +71,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Akshai P B | CyberSecurity Professional & Full Stack Developer',
+    title: 'Akshai P B | Cybersecurity Portfolio & Full Stack Developer',
     description:
-      'Full Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. Available worldwide for collaborations.',
+      'Cybersecurity Professional, SOC Analyst, and Full Stack Developer specializing in Ethical Hacking, Malware Analysis, Penetration Testing, and Security Engineering.',
     images: ['/opengraph-image'],
   },
   robots: {
@@ -120,7 +124,21 @@ export default function RootLayout({ children }) {
               name: 'Akshai P B',
               url: SITE_URL,
               email: 'akshaipb03@gmail.com',
-              jobTitle: 'CyberSecurity Professional & Full Stack Developer',
+              jobTitle: 'Security Engineer & Full Stack Developer',
+              description: 'Cybersecurity Professional, SOC Analyst, and Full Stack Developer specializing in Ethical Hacking, Malware Analysis, Penetration Testing, and Security Engineering.',
+              knowsAbout: [
+                'Cybersecurity Portfolio',
+                'SOC Analyst Portfolio',
+                'Ethical Hacker',
+                'Malware Analysis',
+                'Penetration Testing',
+                'Security Engineer',
+                'Full Stack Developer',
+                'Software Engineering',
+                'MERN Stack',
+                'Next.js',
+                'Secure Web Applications'
+              ],
               sameAs: [
                 'https://github.com/akshaipb-03',
                 'https://www.linkedin.com/in/akshai-pb',

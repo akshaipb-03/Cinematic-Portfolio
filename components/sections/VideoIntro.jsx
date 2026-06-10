@@ -16,6 +16,7 @@ function scrollNext() {
 
 export default function VideoIntro() {
   const videoRef    = useRef(null)
+  const bgVideoRef  = useRef(null)
   const greetRef    = useRef(null)
   const nameRef     = useRef(null)
   const roleRef     = useRef(null)
@@ -34,22 +35,18 @@ export default function VideoIntro() {
 
   // Entrance animation
   useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.4 })
-    tl.fromTo(greetRef.current,  { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
-      .fromTo(nameRef.current,   { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out' }, '-=0.2')
-      .fromTo(roleRef.current,   { opacity: 0, y:  20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
-      .fromTo(scrollRef.current, { opacity: 0 },         { opacity: 1, duration: 0.5 }, '-=0.1')
+    const tl = gsap.timeline({ delay: 0.5 })
+    tl.fromTo(greetRef.current,  { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.85, ease: 'power4.out', force3D: true })
+      .fromTo(nameRef.current,   { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.15, ease: 'power4.out', force3D: true }, '-=0.65')
+      .fromTo(roleRef.current,   { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.85, ease: 'power4.out', force3D: true }, '-=0.85')
+      .fromTo(scrollRef.current, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', force3D: true }, '-=0.4')
     return () => tl.kill()
   }, [])
 
-  // Video fade-in - no auto-unmute; user must click the button
+  // Set muted state on mount
   useEffect(() => {
     const v = videoRef.current
-    if (!v) return
-    // Guarantee muted on mount regardless of browser attribute handling
-    v.muted = true
-    const t = gsap.fromTo(v, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' })
-    return () => t.kill()
+    if (v) v.muted = true
   }, [])
 
   // Unmute when screen loader is dismissed (fires inside user gesture - Safari safe)
@@ -69,8 +66,9 @@ export default function VideoIntro() {
   useEffect(() => {
     function onAnimationDone() {
       const v = videoRef.current
-      if (!v) return
-      v.play().catch(() => {})
+      const bg = bgVideoRef.current
+      if (v) v.play().catch(err => console.error("Main video play failed:", err))
+      if (bg) bg.play().catch(() => {})
     }
     window.addEventListener('loader-animation-done', onAnimationDone)
     return () => window.removeEventListener('loader-animation-done', onAnimationDone)
@@ -93,9 +91,18 @@ export default function VideoIntro() {
 
   function togglePlay() {
     const v = videoRef.current
+    const bg = bgVideoRef.current
     if (!v) return
-    if (playing) { v.pause(); setPlaying(false) }
-    else         { v.play();  setPlaying(true)  }
+    if (playing) {
+      v.pause()
+      if (bg) bg.pause()
+      setPlaying(false)
+    } else {
+      v.play()
+        .then(() => setPlaying(true))
+        .catch(err => console.error("Toggle play failed:", err))
+      if (bg) bg.play().catch(() => {})
+    }
   }
 
   function toggleMute() {
@@ -119,8 +126,9 @@ export default function VideoIntro() {
 
       {/* 1 - Blurred ambient background */}
       <video
+        ref={bgVideoRef}
         src="/assets/intro-compressed.mp4"
-        autoPlay muted playsInline
+        muted playsInline
         aria-hidden="true"
         className={styles.bgVideo}
       />

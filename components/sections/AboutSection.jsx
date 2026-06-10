@@ -19,10 +19,6 @@ export default function AboutSection() {
   const photoRef    = useRef(null)
   const contentRef  = useRef(null)
   const socialsRef  = useRef(null)
-  const intervalRef = useRef(null)
-
-  const [typed, setTyped] = useState(0)
-  const [done,  setDone]  = useState(false)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -34,16 +30,18 @@ export default function AboutSection() {
     let isActive = false
 
     function resetAnim() {
-      clearInterval(intervalRef.current)
       gsap.killTweensOf(photoRef.current)
       gsap.killTweensOf(contentRef.current)
       const socialIcons = socialsRef.current?.querySelectorAll('a') ?? []
       gsap.killTweensOf(socialIcons)
+      
+      const chars = contentRef.current?.querySelectorAll(`.${styles.char}`) ?? []
+      gsap.killTweensOf(chars)
+      gsap.set(chars, { color: '#c8c8c8' })
+
       gsap.set(photoRef.current,   { opacity: 0, x: -50 })
       gsap.set(contentRef.current, { opacity: 0, y:  40 })
       gsap.set(socialIcons, { opacity: 0, y: 20 })
-      setTyped(0)
-      setDone(false)
     }
 
     function playAnim() {
@@ -53,15 +51,14 @@ export default function AboutSection() {
       const socialIcons = socialsRef.current?.querySelectorAll('a') ?? []
       gsap.to(socialIcons, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1, delay: 0.5 })
 
-      let i = 0
-      intervalRef.current = setInterval(() => {
-        i = Math.min(i + 6, BIO.length)
-        setTyped(i)
-        if (i >= BIO.length) {
-          clearInterval(intervalRef.current)
-          setDone(true)
-        }
-      }, 16)
+      const chars = contentRef.current?.querySelectorAll(`.${styles.char}`) ?? []
+      gsap.to(chars, {
+        color: '#111111',
+        duration: 0.05,
+        stagger: 0.008,
+        ease: 'none',
+        delay: 0.2
+      })
     }
 
     resetAnim()
@@ -74,7 +71,6 @@ export default function AboutSection() {
 
     scroller.addEventListener('scroll', onScroll, { passive: true })
     return () => {
-      clearInterval(intervalRef.current)
       scroller.removeEventListener('scroll', onScroll)
     }
   }, [])
@@ -119,7 +115,7 @@ export default function AboutSection() {
       <div ref={contentRef} className={styles.content}>
 
         {/* Who I Am - label + infinite marquee */}
-        <p className={styles.whoLabel}>Who I Am</p>
+        <h2 className={styles.whoLabel}>Who I Am</h2>
         <div className={styles.marqueeWrap}>
           <div className={styles.marqueeTrack}>
             {[...WHO_ITEMS, ...WHO_ITEMS].map((item, i) => (
@@ -137,11 +133,7 @@ export default function AboutSection() {
             {BIO.split('').map((char, i) => (
               <span
                 key={i}
-                className={
-                  i < typed
-                    ? (i === typed - 1 && !done ? styles.lastTyped : styles.typed)
-                    : styles.untyped
-                }
+                className={styles.char}
               >
                 {char}
               </span>
