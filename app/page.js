@@ -9,13 +9,13 @@ import AboutSection          from '@/components/sections/AboutSection'
 import ProjectsSection       from '@/components/sections/ProjectsSection'
 import WorkExperienceSection from '@/components/sections/WorkExperienceSection'
 import CertificationsSection from '@/components/sections/CertificationsSection'
-import PublicationsFooterSection from '@/components/sections/PublicationsFooterSection'
+import ContactSection        from '@/components/sections/ContactSection'
 import ScreenLoader from '@/components/sections/ScreenLoader'
 import profile               from '@/data/profile.json'
 
-// Snap: 0=video 1=hero 2=about 3..N=projects N+1=work-exp N+2=certifications N+3=interstitial N+4=footer
+// Snap: 0=video 1=hero 2=about 3..N=projects N+1=work-exp N+2=certifications N+3=contact
 const PROJECT_SLIDES = profile.projects.length
-const TOTAL          = 7 + PROJECT_SLIDES  // 9 with 2 projects
+const TOTAL          = 6 + PROJECT_SLIDES  // 8 with 2 projects
 
 export default function Home() {
   const mainRef        = useRef(null)
@@ -176,7 +176,7 @@ export default function Home() {
           <ProjectsSection />
           <WorkExperienceSection />
           <CertificationsSection />
-          <PublicationsFooterSection />
+          <ContactSection />
         </div>
       </main>
     </>

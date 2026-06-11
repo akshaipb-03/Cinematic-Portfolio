@@ -15,4 +15,5 @@ Heed deprecation notices.
 - **`app/globals.css`** is the single source of truth for design tokens. CSS custom properties defined there are used across all modules.
 - **`lib/siteConfig.js`** exports `SITE_URL`. Use it in metadata and JSON-LD — not hardcoded strings.
 - **Three.js components** (`components/three/`) must be loaded with `dynamic(..., { ssr: false })` — they use browser APIs.
-- **`PublicationsFooterSection`** is a 300 vh sticky section covering 3 scroll steps. Do not split it into separate sections without updating `TOTAL` in `page.js`.
+- **`ContactSection`** is the last snap section (index `TOTAL - 1`). It contains social links, email CTA, and the site footer strip. `TOTAL = 7 + PROJECT_SLIDES` in `page.js`.
+
